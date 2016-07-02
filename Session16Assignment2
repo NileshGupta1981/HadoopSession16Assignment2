@@ -1,0 +1,34 @@
+SELECT AVG(age) from olympic;
+
+--Creating an Index
+
+CREATE INDEX olympic_index ON TABLE olympic (age)
+AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+
+ALTER INDEX olympic_index on olympic REBUILD;
+--Showing Compact index on table
+
+show formatted index on olympic;
+
+SELECT AVG(age) from olympic;
+
+
+-- Showing Bitmap Index on table
+CREATE INDEX olympic_index_bitmap ON TABLE olympic (age)
+AS 'BITMAP' WITH DEFERRED REBUILD;
+ 
+ALTER INDEX olympic_index_bitmap on olympic REBUILD;
+
+show formatted index on olympic;
+
+SELECT AVG(age) from olympic;
+
+DROP INDEX IF EXISTS olympic_index ON olympic;
+
+SELECT AVG(age) from olympic;
+
+
+
+
+
+
